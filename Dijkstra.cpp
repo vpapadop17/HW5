@@ -6,14 +6,11 @@
 using namespace std;
 
 /*
- * Time Complexity: O(E * V log V)
- * - V is the number of nodes, E is the number of edges.
- * - Initializing distances takes O(V) time.
- * - Each node is popped from the queue at most once.
- * - For each popped node, we inspect its outward edges.
- * - Updating BPQ takes O(V log V) time because we rebuild/re-sort 
- *   the vector using push operations.
- * - Overall worst-case time complexity: O(E * V log V).
+ * Time Complexity: O(E * N log N), N is the number of nodes, E is the number of edges. Initializing distances takes O(N) time.
+ *  For each node, we look at its edges.
+ * - Updating BPQ takes O(N log N) time because we re-sort 
+ *   the vector using push.
+ * - Overall worst-case time complexity: O(E * N log N).
  */
 
 int dijkstra(nodekey_t start, nodekey_t end, const Graph *g) {
