@@ -14,30 +14,23 @@ bool BetterPriorityQueue::Contains(const BPQNode& node) const {
 }
 
 bool BetterPriorityQueue::Update(const BPQNode& node) {
-    bool foundAndUpdated = false;
-
-    
     for (BPQNode& item : this->c) {
         if (item.gnode == node.gnode) {
             if (node.pri < item.pri) {
                 item.pri = node.pri;
-                foundAndUpdated = true;
+
+                BetterPriorityQueue tempQueue;
+                for (const BPQNode& queueItem : this->c) {
+                    tempQueue.push(queueItem);
+                }
+                *this = tempQueue;
+                return true; 
             }
-            break;
+            return false; // Found the node, but its new priority wasn't smaller
         }
     }
 
-    
-    if (foundAndUpdated) {
-        BetterPriorityQueue tempQueue;
-        for (const BPQNode& item : this->c) {
-            tempQueue.push(item);
-        }
-        *this = tempQueue; // Overwrite current queue with the re-ordered queue
-        return true;
-    }
-
-    return false;
+    return false; // Node wasn't found in the queue
 }
 
 string BetterPriorityQueue::ToString() const {
